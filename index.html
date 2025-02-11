@@ -39,7 +39,7 @@
             .openPopup();
 
         // Load GeoJSON polygon file
-        fetch('your_file.geojson')  // Replace with the actual GeoJSON file path
+        fetch('TCPrecinctsDem.geojson')  // Replace with the actual GeoJSON file path
             .then(response => response.json())
             .then(data => {
                 L.geoJSON(data, {
