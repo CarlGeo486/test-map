@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Leaflet Map</title>
+    <title>Leaflet Map - Austin, TX</title>
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -18,26 +18,44 @@
 </head>
 <body>
 
-    <h2>Basic Leaflet Map</h2>
+    <h2>Leaflet Map with GeoJSON (Austin, TX)</h2>
     <div id="map"></div>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <script>
-        // Initialize the map
-        var map = L.map('map').setView([51.505, -0.09], 13); // Centered at London
+        // Initialize the map centered on Austin, TX
+        var map = L.map('map').setView([30.2672, -97.7431], 13);
 
         // Add OpenStreetMap tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Add a marker
-        var marker = L.marker([51.505, -0.09]).addTo(map)
-            .bindPopup('<b>Hello!</b><br>This is a Leaflet map.')
+        // Add a marker at Austin, TX
+        var marker = L.marker([30.2672, -97.7431]).addTo(map)
+            .bindPopup('<b>Welcome to Austin!</b><br>The capital of Texas.')
             .openPopup();
+
+        // Load GeoJSON polygon file
+        fetch('your_file.geojson')  // Replace with the actual GeoJSON file path
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        return {
+                            color: "blue",  // Polygon border color
+                            fillColor: "lightblue", // Fill color
+                            fillOpacity: 0.5,  // Transparency
+                            weight: 2  // Border thickness
+                        };
+                    }
+                }).addTo(map);
+            })
+            .catch(error => console.error('Error loading GeoJSON:', error));
+
     </script>
 
 </body>
 </html>
-
